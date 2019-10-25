@@ -1,10 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myapp/ContenedorPaginas.dart';
+import 'package:async/async.dart';
 
-class Pagina1 extends StatelessWidget{
+class UI_Inicio extends StatelessWidget{
+  Timer _timer;
+  int _start = 10;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) => setState(
+            () {
+          if (_start < 1) {
+            timer.cancel();
+          } else {
+            _start = _start - 1;
+          }
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+
     double defaultScreenWidth = 400.0;
     double defaultScreenHeight = 810.0;
     ScreenUtil.instance = ScreenUtil (
@@ -80,7 +107,8 @@ class Pagina1 extends StatelessWidget{
 
                     //    color: Colors.red
                     // ),
-                    child: RaisedButton(
+                //    child: RaisedButton(
+                      color: Color(0xFFffffff),
                       child : Text(
                         'find your soul mate with us!',
 
@@ -94,11 +122,11 @@ class Pagina1 extends StatelessWidget{
 
                         ),
                       ),
-                      onPressed: (){
-                        Route route =MaterialPageRoute(builder: (bc) => ContenedorPaginas());
-                        Navigator.of(context).push(route);
-                      },
-                   ),
+           //           onPressed: (){
+                //        Route route =MaterialPageRoute(builder: (bc) => ContenedorPaginas());
+                  //      Navigator.of(context).push(route);
+                    //  },
+               //     ),
                   ),
                 ],
               ),
@@ -108,3 +136,7 @@ class Pagina1 extends StatelessWidget{
     );
   }
 }
+
+Timer(Duration(seconds: 3), () {
+print("Yeah, this line is printed after 3 seconds");
+});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/Pagina1.dart';
+import 'package:myapp/UI_Inicio.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-        home: Pagina1(),
+        home: UI_Inicio(),
 
     );
 
@@ -41,36 +41,85 @@ class FondoArriba extends StatelessWidget{
 
 Widget menu() {
   return Container(
-    color: Color(0xfffffff),
+    margin: EdgeInsets.only(
+      bottom: ScreenUtil.instance.setWidth(10.0),
+        left: ScreenUtil.instance.setWidth(2.0),
+        right: ScreenUtil.instance.setWidth(2.0)
+    ),
+    decoration: BoxDecoration(
+      //border: Border.all(color: Colors.grey),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5.0,
+            color: Colors.black26.withOpacity(.2),
+            //offset: Offset(6.0, 5.0),
+          ),
+        ],
+        color: Colors.white,
+        borderRadius: new BorderRadius.only(
+            topLeft: const Radius.circular(40.0),
+            topRight: const Radius.circular(40.0),
+            bottomLeft: const Radius.circular(40.0),
+            bottomRight: const Radius.circular(40.0))),
     child : SizedBox(
       width:  ScreenUtil.instance.setHeight(140),
       height: ScreenUtil.instance.setWidth(70),
       child: TabBar(
-        labelColor: Color(0xff5ffff6),
+        labelColor: Color(0xffffffff),
 
         unselectedLabelColor: Color(0xff0C0025),
         indicatorSize: TabBarIndicatorSize.tab,
         indicatorPadding: EdgeInsets.all(10.0),
-        indicatorColor: Color(0xff4A00E0),
+        indicator: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Color(0xFF771DE1), Color(0xFF4A00E0)]),
+            borderRadius: BorderRadius.circular(40),
+            color: Colors.redAccent),
         tabs: [
           Tab(
               child: Text(
-                  'Home'
+                  'Home',
+          style: TextStyle(
+          fontFamily: 'Source Sans Pro',
+          fontSize: ScreenUtil.getInstance().setSp(11),
+          fontWeight: FontWeight.normal,
+      ),
               ),
-              icon : Icon(Icons.dashboard),
+              icon : Icon(Icons.dashboard, size: 30.0),
             ),
 
           Tab(
-            text: "Connections",
-            icon: Icon(Icons.favorite_border),
+            child: Text(
+              'Connections',
+              style: TextStyle(
+                fontFamily: 'Source Sans Pro',
+                fontSize: ScreenUtil.getInstance().setSp(11),
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            icon: Icon(Icons.favorite_border, size: 30.0),
           ),
           Tab(
-            text: "Chats",
-            icon: Icon(Icons.chat_bubble_outline),
+            child: Text(
+              'Chats',
+              style: TextStyle(
+                fontFamily: 'Source Sans Pro',
+                fontSize: ScreenUtil.getInstance().setSp(11),
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            icon: Icon(Icons.chat_bubble_outline, size: 30.0),
           ),
           Tab(
-            text: "Profile",
-            icon: Icon(Icons.person_outline),
+            child: Text(
+              'Profile',
+              style: TextStyle(
+                fontFamily: 'Source Sans Pro',
+                fontSize: ScreenUtil.getInstance().setSp(11),
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            icon: Icon(Icons.person_outline, size: 30.0),
           ),
         ],
       ),
@@ -79,34 +128,3 @@ Widget menu() {
   );
 }
 
-class CustomTabIndicator extends Decoration {
-
-  @override
-  BoxPainter createBoxPainter([VoidCallback onChanged]) {
-    return new _CustomPainter(this, onChanged);
-  }
-
-}
-class _CustomPainter extends BoxPainter {
-
-  final CustomTabIndicator decoration;
-
-  _CustomPainter(this.decoration, VoidCallback onChanged)
-      : assert(decoration != null),
-        super(onChanged);
-
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    assert(configuration != null);
-    assert(configuration.size != null);
-
-    //offset is the position from where the decoration should be drawn.
-    //configuration.size tells us about the height and width of the tab.
-    final Rect rect = offset & configuration.size;
-    final Paint paint = Paint();
-    paint.color = Colors.blueAccent;
-    paint.style = PaintingStyle.fill;
-    canvas.drawRRect(RRect.fromRectAndRadius(rect, Radius.circular(10.0)), paint);
-  }
-
-}
