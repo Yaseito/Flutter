@@ -1,36 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myapp/ContenedorPaginas.dart';
-import 'package:async/async.dart';
 
 class UI_Inicio extends StatelessWidget{
-  Timer _timer;
-  int _start = 10;
-
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-          (Timer timer) => setState(
-            () {
-          if (_start < 1) {
-            timer.cancel();
-          } else {
-            _start = _start - 1;
-          }
-        },
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+ // Duration _timerDuration = new Duration(seconds: 5);
+
+// Creating a new timer element.
+  //RestartableTimer _timer = new RestartableTimer(_timerDuration, _startNewPage);
+
+  //  func _startNewPage() {
+  //   context,
+ //     MaterialPageRoute(builder: (context) => ContenedorPaginas()),
+  //  );
+  //}
+
+// Restarting the timer
+  //_timer.reset();
+
+
 
     double defaultScreenWidth = 400.0;
     double defaultScreenHeight = 810.0;
@@ -58,6 +50,7 @@ class UI_Inicio extends StatelessWidget{
                 child: image
             ),
             Container(
+              margin: EdgeInsets.only(top: ScreenUtil.instance.setWidth(30.0)),
 
               //decoration: BoxDecoration(
 
@@ -122,21 +115,29 @@ class UI_Inicio extends StatelessWidget{
 
                         ),
                       ),
-           //           onPressed: (){
-                //        Route route =MaterialPageRoute(builder: (bc) => ContenedorPaginas());
-                  //      Navigator.of(context).push(route);
+
+           //
                     //  },
                //     ),
                   ),
+                  Container(
+                  child: RaisedButton(
+                      color: Color(0xFFffffff),
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0)),
+                  onPressed: () {
+                    Route route = MaterialPageRoute(
+                        builder: (bc) => ContenedorPaginas());
+                    Navigator.of(context).push(route);
+                  }
+                  )
+                  )
                 ],
               ),
             ),
+
           ]
       ),
     );
   }
 }
-
-Timer(Duration(seconds: 3), () {
-print("Yeah, this line is printed after 3 seconds");
-});
